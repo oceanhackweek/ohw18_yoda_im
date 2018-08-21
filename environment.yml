@@ -1,0 +1,8 @@
+name: yoda_im
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - flask
+  - pip: 
+    - git+https://github.com/cormorack/yodapy.git
