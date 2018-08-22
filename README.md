@@ -5,3 +5,17 @@ Your ocean data access interface `http://module/methods/<Help you I can>`
 
 - <https://github.com/cormorack/yodapy>
 - <http://flask.pocoo.org>
+
+## Docker
+
+To run the server
+
+```
+docker-compose up
+```
+
+To tear down server
+
+```
+docker-compose down
+```
