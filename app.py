@@ -9,7 +9,8 @@ base_url = "http://ooi.visualocean.net"
 app = Flask(__name__)
 
 
-
+def string_match(a, b): 
+  return a in b
 
 @app.route("/")
 def hello():
@@ -25,6 +26,10 @@ def list_data_products():
     ## Concatinate the lists, sort, unique-ify, and drop nones
     all_params = list(sdf['display_name'].dropna().values) + list(sdf['name'].dropna().values) + list(sdf['standard_name'].dropna().values)
     unique_list = sorted(list(set(all_params)))
+    f = request.args.get('filter')
+    if (f):
+      lf = f.lower()
+      unique_list = list(filter(lambda s: lf in s.lower(), unique_list))
     return jsonify(unique_list)
     # return jsonify(list(sdf.display_name.unique()))
 
