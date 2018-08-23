@@ -34,7 +34,7 @@ def list_data_products():
 
 @app.route("/instruments")
 def list_instruments():
-    unique_list = visualocean.instruments()
+    unique_inst = visualocean.instruments()
     return jsonify(unique_inst)
 
 @app.route("/nodes")
