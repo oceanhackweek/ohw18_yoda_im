@@ -5,11 +5,18 @@ import pandas as pd
 import numpy as np
 from flask import Flask, request, abort, jsonify, send_file, Response
 from visualocean import VisualOcean, merge_name_rd
+from typing import List
 
 base_url = "http://ooi.visualocean.net"
 
 app = Flask(__name__)
 visualocean = VisualOcean(base_url)
+
+
+def filtered(m: str, values: List[str]) -> List[str]:
+    """Filter a list to strings that contain a substring"""
+    n = m.lower()
+    return list(filter(lambda s: n in s.lower(), values))
 
 
 @app.route("/")
@@ -19,52 +26,73 @@ def hello():
 
 @app.route("/products")
 def list_data_products():
-    unique_list = visualocean.products()
+    unique_values = visualocean.products()
     f = request.args.get('filter')
-    if (f):
-        lf = f.lower()
-        unique_list = list(filter(lambda s: lf in s.lower(), unique_list))
-    return jsonify(unique_list)
-    # return jsonify(list(sdf.display_name.unique()))
+    if f:
+        unique_values = filtered(f, unique_values)
+    return jsonify(unique_values)
+    
+@app.route("/products/id/<name>")
+def find_product_id(name):
+    pid = visualocean.parameter_id(name)
+    if pid == -1:
+        abort(404)
+    else:
+        return jsonify({"id": pid, "requested_name": name})
+
+@app.route("/streams/<parameter_id>")
+def find_stream_names(parameter_id):
+    names = visualocean.stream_names(parameter_id)
+    if len(names) == 0:
+        abort(404)
+    else:
+        return jsonify(names)
+
+@app.route("/reference_designator/<stream_name>")
+def find_reference_designator(stream_name: str):
+    rds = visualocean.reference_designator(stream_name)
+    if len(rds) == 0:
+        abort(404)
+    else:
+        return jsonify(rds)
+
+
+
 
 
 @app.route("/instruments")
 def list_instruments():
-    unique_inst = visualocean.instruments()
+    unique_values = visualocean.instruments()
     f = request.args.get('filter')
-    if (f):
-        lf = f.lower()
-        unique_inst = list(filter(lambda s: lf in s.lower(), unique_inst))
-    return jsonify(unique_inst)
+    if f:
+        unique_values = filtered(f, unique_values)
+    return jsonify(unique_values)
 
 
 @app.route("/nodes")
 def list_nodes():
-    unique_nodes = visualocean.nodes()
+    unique_values = visualocean.nodes()
     f = request.args.get('filter')
-    if (f):
-        lf = f.lower()
-        unique_nodes = list(filter(lambda s: lf in s.lower(), unique_nodes))
-    return jsonify(unique_nodes)
+    if f:
+        unique_values = filtered(f, unique_values)
+    return jsonify(unique_values)
 
 
 @app.route("/sites")
 def list_sites():
-    unique_sites = visualocean.sites()
+    unique_values = visualocean.sites()
     f = request.args.get('filter')
-    if (f):
-        lf = f.lower()
-        unique_sites = list(filter(lambda s: lf in s.lower(), unique_sites))
-    return jsonify(unique_sites)
+    if f:
+        unique_values = filtered(f, unique_values)
+    return jsonify(unique_values)
 
 @app.route("/regions")
 def list_regions():
-    unique_regions = visualocean.regions()
+    unique_values = visualocean.regions()
     f = request.args.get('filter')
-    if (f):
-        lf = f.lower()
-        unique_regions = list(filter(lambda s: lf in s.lower(), unique_regions))
-    return jsonify(unique_regions)
+    if f:
+        unique_values = filtered(f, unique_values)
+    return jsonify(unique_values)
 
 if __name__ == "__main__":
     port = int(sys.argv[1])

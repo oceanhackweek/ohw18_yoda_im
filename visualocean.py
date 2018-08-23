@@ -1,7 +1,8 @@
 import requests
 import pandas as pd
-from typing import List
+from typing import List, Dict
 import numpy as np
+import json
 
 
 def merge_name_rd(row):
@@ -59,3 +60,39 @@ class VisualOcean(object):
         regions_df = pd.DataFrame.from_records(regions['regions'])
         return list(np.sort(regions_df.apply(merge_site_name, axis=1).unique()))
 
+
+    def parameter_id(self, param_name: str) -> int:
+        """returns the parameter id that matches the provided parameter name.
+           -1 is returned if no match is found"""
+        url = "{}/parameters.json".format(self.base_url)
+        j = requests.get(url).json()
+        for r in j['data']:
+            if param_name == r['name'] or param_name == r['standard_name'] or param_name == r['display_name']:
+                return r['id']
+        return -1
+
+    def stream_names(self, parameter_id: int) -> List[str]:
+        url = "{}/parameters/view/{}.json".format(self.base_url, parameter_id)
+        j = requests.get(url).json()
+        names: List[str] = []
+        try:
+            streams = j['parameter']['streams']
+            for s in streams:
+                names.append(s['name'])
+        except:
+            # TODO log or report error?
+            pass
+        return names
+
+    def reference_designator(self, stream_name: str) -> List[str]:
+        url = "{}/streams/view/{}.json".format(self.base_url, stream_name)
+        j = requests.get(url).json()
+        rds = []
+        try:
+            designators = j['stream']['data_streams']
+            for d in designators:
+                rds.append(d['reference_designator'])
+        except:
+            # TODO log or report error?
+            pass
+        return rds
