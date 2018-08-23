@@ -47,6 +47,11 @@ def list_sites():
     unique_sites = visualocean.sites()
     return jsonify(unique_sites)
 
+@app.route("/regions")
+def list_regions():
+    unique_regions = visualocean.regions()
+    return jsonify(unique_regions)
+
 if __name__ == "__main__":
     port = int(sys.argv[1])
     app.run(host="0.0.0.0", port=port, debug=True, threaded=True)
