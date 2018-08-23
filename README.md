@@ -13,6 +13,7 @@ source activate yoda_im
 - `/instruments`
 - `/nodes`
 - `/sites`
+- `/regions`
 
 ## References
 
