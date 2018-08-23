@@ -22,3 +22,8 @@ class VisualOcean(object):
         df = pd.DataFrame.from_records(params['data'])
         return sorted(list(set(df['name'].dropna().values)))
 
+    def nodes(self):
+        nodes    = requests.get('/'.join([base_url, 'nodes.json'])).json()
+        nodes_df = pd.DataFrame.from_records(nodes['nodes'])
+        unique_nodes = sorted(list(set(nodes_df['name'].dropna().values)))
+
