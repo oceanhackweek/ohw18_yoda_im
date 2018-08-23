@@ -8,6 +8,11 @@ conda env create -f environment.yml
 source activate yoda_im
 ```
 
+## Current Endpoints
+- `/products`
+- `/instruments`
+- `/nodes`
+
 ## References
 
 - <https://github.com/cormorack/yodapy>
