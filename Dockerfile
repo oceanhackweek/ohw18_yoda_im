@@ -18,12 +18,13 @@ ENV APP_HOME=/opt/yoda_im
 ENV PORT 4567
 ENV PATH=/root/miniconda3/bin:$PATH:${APP_HOME}
 
+RUN conda update -n base conda \
+    && conda env create -f environment.yml
+
 COPY . ${APP_HOME}
 WORKDIR ${APP_HOME}
 
-RUN conda update -n base conda \
-    && conda env create -f environment.yml \
-    && chmod a+x ${APP_HOME}/app.sh
+RUN chmod a+x ${APP_HOME}/app.sh
 
 CMD ["app.sh"]
 
