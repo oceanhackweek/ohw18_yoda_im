@@ -105,4 +105,28 @@ class VisualOcean(object):
             return j['instrument']['deployments']
         except:
             # TODO log
-            return None
+            return []
+
+    def deployments_by_param_name(self, param_name: str):
+        # get parameter_id
+        pid = self.parameter_id(param_name)
+
+
+        #get stream names by param id
+        sns = self.stream_names(pid)
+
+        # get reference_designators by stream_name
+        rds = []
+        for stream_name in sns:
+            rs = self.reference_designator(stream_name)
+            for r in rs:
+                rds.append(r)
+
+        # get deployments by referenc designator
+        ds = []
+        for rd in rds:
+            ds = self.deployments(rd)
+            for d in ds:
+                ds.append(d)
+        
+        return ds
