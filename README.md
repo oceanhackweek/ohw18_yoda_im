@@ -18,11 +18,11 @@ source activate yoda_im
 To run the server
 
 ```
-docker-compose up
+docker-compose -f docker_dev/docker-compose.yml up
 ```
 
 To tear down server
 
 ```
-docker-compose down
+docker-compose -f docker_dev/docker-compose.yml down
 ```
