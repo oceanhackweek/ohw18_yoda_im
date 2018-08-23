@@ -1,4 +1,7 @@
 # ohw18_yoda_im
+
+![logo](logo.png)
+
 Your ocean data access interface `http://module/methods/<Help you I can>`
 
 ## Development setup for command line use
