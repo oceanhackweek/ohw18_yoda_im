@@ -12,6 +12,7 @@ source activate yoda_im
 - `/products`
 - `/instruments`
 - `/nodes`
+- `/sites`
 
 ## References
 
