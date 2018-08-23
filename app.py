@@ -3,6 +3,7 @@ import json
 import requests
 import pandas as pd
 import numpy as np
+from flask_cors import CORS
 from flask import Flask, request, abort, jsonify, send_file, Response
 from visualocean import VisualOcean, merge_name_rd
 from typing import List
@@ -10,6 +11,7 @@ from typing import List
 base_url = "http://ooi.visualocean.net"
 
 app = Flask(__name__)
+CORS(app)
 visualocean = VisualOcean(base_url)
 
 
