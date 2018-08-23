@@ -35,11 +35,19 @@ def list_data_products():
 @app.route("/instruments")
 def list_instruments():
     unique_inst = visualocean.instruments()
+    f = request.args.get('filter')
+    if (f):
+        lf = f.lower()
+        unique_inst = list(filter(lambda s: lf in s.lower(), unique_inst))
     return jsonify(unique_inst)
 
 @app.route("/nodes")
 def list_nodes():
     unique_nodes = visualocean.nodes()
+    f = request.args.get('filter')
+    if (f):
+        lf = f.lower()
+        unique_nodes = list(filter(lambda s: lf in s.lower(), unique_nodes))
     return jsonify(unique_nodes)
 
 @app.route("/sites")
@@ -54,6 +62,10 @@ def list_sites():
 @app.route("/regions")
 def list_regions():
     unique_regions = visualocean.regions()
+    f = request.args.get('filter')
+    if (f):
+        lf = f.lower()
+        unique_regions = list(filter(lambda s: lf in s.lower(), unique_regions))
     return jsonify(unique_regions)
 
 if __name__ == "__main__":
