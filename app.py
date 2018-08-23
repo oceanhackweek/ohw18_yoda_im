@@ -3,10 +3,12 @@ import json
 import requests
 import pandas as pd
 from flask import Flask, request, abort, jsonify, send_file, Response
+from visualocean import VisualOcean
 
 base_url = "http://ooi.visualocean.net"
 
 app = Flask(__name__)
+visual_ocean = VisualOcean(base_url)
 
 
 def string_match(a, b): 
@@ -18,14 +20,7 @@ def hello():
 
 @app.route("/products")
 def list_data_products():
-    ## Request all parameters
-    params = requests.get("{}/parameters.json".format(base_url)).json()
-    df = pd.DataFrame.from_records(params['data'])
-    ## Filter only science data
-    sdf = df[df.data_product_type == 'Science Data']
-    ## Concatinate the lists, sort, unique-ify, and drop nones
-    all_params = list(sdf['display_name'].dropna().values) + list(sdf['name'].dropna().values) + list(sdf['standard_name'].dropna().values)
-    unique_list = sorted(list(set(all_params)))
+    unique_list = visual_ocean.products()
     f = request.args.get('filter')
     if (f):
       lf = f.lower()
