@@ -45,6 +45,10 @@ def list_nodes():
 @app.route("/sites")
 def list_sites():
     unique_sites = visualocean.sites()
+    f = request.args.get('filter')
+    if (f):
+        lf = f.lower()
+        unique_sites = list(filter(lambda s: lf in s.lower(), unique_sites))
     return jsonify(unique_sites)
 
 @app.route("/regions")
