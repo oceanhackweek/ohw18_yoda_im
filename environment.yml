@@ -5,6 +5,8 @@ dependencies:
   - python=3.6
   - flask
   - flask-cors
+  - xarray
+  - geopandas
   - flake8
   - pytest
   - pip: 
