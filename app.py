@@ -2,8 +2,9 @@ import sys
 import json
 import requests
 import pandas as pd
+import numpy as np
 from flask import Flask, request, abort, jsonify, send_file, Response
-from visualocean import VisualOcean
+from visualocean import VisualOcean, merge_name_rd
 
 base_url = "http://ooi.visualocean.net"
 
@@ -33,7 +34,7 @@ def list_data_products():
 
 @app.route("/instruments")
 def list_instruments():
-    unique_list = visualocean.instruments()
+    unique_inst = visualocean.instruments()
     return jsonify(unique_inst)
 
 @app.route("/nodes")
