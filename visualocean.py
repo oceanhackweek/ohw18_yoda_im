@@ -8,7 +8,12 @@ def merge_name_rd(row):
     ''' Merges node names and node ref designator '''
     name = row['name'].split('(')[0]
     rd = row['reference_designator'].split('-')[1]
-  
+    return f'{name} ({rd})'
+
+def merge_site_name(row):
+    ''' Merges site names with ref designator '''
+    name = row['name']
+    rd   = row['reference_designator']
     return f'{name} ({rd})'
 
 class VisualOcean(object):
@@ -39,4 +44,12 @@ class VisualOcean(object):
         node_refIDs = nodes_df['reference_designator']
         nnames = node_names.apply(lambda x: x.split('(')[0])
         return list(np.sort(nodes_df.apply(merge_name_rd, axis=1).unique()))
+
+    def sites(self):
+        url = "{}/sites.json".format(self.base_url)
+        sites = requests.get(url).json()
+        sites_df = pd.DataFrame.from_records(sites)
+        return list(np.sort(sites_df.apply(merge_site_name, axis=1).unique()))
+
+
 
