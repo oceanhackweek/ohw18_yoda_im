@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  yoda_im_server:
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/opt/yoda_im:consistent
+    ports:
+      - 4567:4567
+  yoda_im_frontend:
+    build:
+      context: ../
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - ../frontend/:/usr/src/app:consistent
+    ports:
+      - 3000:3000
+    command: bash -c "npm start"
