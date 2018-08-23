@@ -15,3 +15,10 @@ class VisualOcean(object):
         all_params = list(science_df['display_name'].dropna().values) + list(
             science_df['name'].dropna().values) + list(science_df['standard_name'].dropna().values)
         return sorted(list(set(all_params)))
+
+    def instruments(self):
+        url = "{}/instruments.json".format(self.base_url)
+        params = requests.get(url).json()
+        df = pd.DataFrame.from_records(params['data'])
+        return sorted(list(set(df['name'].dropna().values)))
+
