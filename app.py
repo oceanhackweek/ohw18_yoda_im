@@ -2,8 +2,9 @@ import sys
 import json
 import requests
 import pandas as pd
+import numpy as np
 from flask import Flask, request, abort, jsonify, send_file, Response
-from visualocean import VisualOcean
+from visualocean import VisualOcean, merge_name_rd
 
 base_url = "http://ooi.visualocean.net"
 
@@ -43,9 +44,15 @@ def list_instruments():
 
 @app.route("/nodes")
 def list_nodes():
-    nodes    = requests.get('/'.join([base_url, 'nodes.json'])).json()
-    nodes_df = pd.DataFrame.from_records(nodes['nodes'])
-    unique_nodes = sorted(list(set(nodes_df['name'].dropna().values)))
+    nnames = requests.get('/'.join([base_url, 'nodes.json'])).json()
+    nodes_df    = pd.DataFrame.from_records(nnames['nodes'])
+    node_names  = nodes_df['name']
+    node_refIDs = nodes_df['reference_designator']
+    nnames = node_names.apply(lambda x: x.split('(')[0])
+    unique_nodes = list(np.sort(nodes_df.apply(merge_name_rd, axis=1).unique()))
+#    nodes    = requests.get('/'.join([base_url, 'nodes.json'])).json()
+#    nodes_df = pd.DataFrame.from_records(nodes['nodes'])
+#    unique_nodes = sorted(list(set(nodes_df['name'].dropna().values)))
     return jsonify(unique_nodes)
 
 

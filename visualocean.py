@@ -2,6 +2,13 @@ import requests
 import pandas as pd
 
 
+def merge_name_rd(row):
+    ''' Merges node names and node ref designator '''
+    name = row['name'].split('(')[0]
+    rd = row['reference_designator'].split('-')[1]
+  
+    return f'{name} ({rd})'
+
 class VisualOcean(object):
 
     def __init__(self, base_url):
