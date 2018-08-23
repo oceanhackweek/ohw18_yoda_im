@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import numpy as np
 
 
 def merge_name_rd(row):
@@ -30,7 +31,11 @@ class VisualOcean(object):
         return sorted(list(set(df['name'].dropna().values)))
 
     def nodes(self):
-        nodes    = requests.get('/'.join([base_url, 'nodes.json'])).json()
-        nodes_df = pd.DataFrame.from_records(nodes['nodes'])
-        unique_nodes = sorted(list(set(nodes_df['name'].dropna().values)))
+        url = "{}/nodes.json".format(self.base_url)
+        nnames = requests.get(url).json()
+        nodes_df    = pd.DataFrame.from_records(nnames['nodes'])
+        node_names  = nodes_df['name']
+        node_refIDs = nodes_df['reference_designator']
+        nnames = node_names.apply(lambda x: x.split('(')[0])
+        return list(np.sort(nodes_df.apply(merge_name_rd, axis=1).unique()))
 
