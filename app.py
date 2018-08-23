@@ -27,6 +27,13 @@ def list_data_products():
       unique_list = list(filter(lambda s: lf in s.lower(), unique_list))
     return jsonify(unique_list)
     # return jsonify(list(sdf.display_name.unique()))
+
+@app.route("/instruments")
+def list_instruments():
+    params = requests.get("{}/instruments.json".format(base_url)).json()
+    df = pd.DataFrame.from_records(params['data'])
+    unique_inst = sorted(list(set(df['name'].dropna().values)))
+    return jsonify(unique_inst)
     
 
 
