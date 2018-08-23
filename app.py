@@ -42,6 +42,11 @@ def list_nodes():
     unique_nodes = visualocean.nodes()
     return jsonify(unique_nodes)
 
+@app.route("/sites")
+def list_sites():
+    unique_sites = visualocean.sites()
+    return jsonify(unique_sites)
+
 if __name__ == "__main__":
     port = int(sys.argv[1])
     app.run(host="0.0.0.0", port=port, debug=True, threaded=True)
