@@ -12,10 +12,6 @@ app = Flask(__name__)
 visualocean = VisualOcean(base_url)
 
 
-def string_match(a, b):
-    return a in b
-
-
 @app.route("/")
 def hello():
     return "hello world"
@@ -37,15 +33,18 @@ def list_instruments():
     unique_inst = visualocean.instruments()
     return jsonify(unique_inst)
 
+
 @app.route("/nodes")
 def list_nodes():
     unique_nodes = visualocean.nodes()
     return jsonify(unique_nodes)
 
+
 @app.route("/sites")
 def list_sites():
     unique_sites = visualocean.sites()
     return jsonify(unique_sites)
+
 
 if __name__ == "__main__":
     port = int(sys.argv[1])
