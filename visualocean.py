@@ -18,6 +18,7 @@ def merge_site_name(row):
     rd = row['reference_designator']
     return f'{name} ({rd})'
 
+Deployments = List[Dict[str, str]]
 
 class VisualOcean(object):
 
@@ -96,3 +97,12 @@ class VisualOcean(object):
             # TODO log or report error?
             pass
         return rds
+
+    def deployments(self, reference_designator: str):
+        url = "{}/instruments/view/{}.json".format(self.base_url, reference_designator)
+        j = requests.get(url).json()
+        try:
+            return j['instrument']['deployments']
+        except:
+            # TODO log
+            return None

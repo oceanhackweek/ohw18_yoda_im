@@ -58,7 +58,13 @@ def find_reference_designator(stream_name: str):
     else:
         return jsonify(rds)
 
-
+@app.route("/deployments/<reference_designator>")
+def find_deployments(reference_designator):
+    ds = visualocean.deployments(reference_designator)
+    if len(ds) == 0:
+        abort(404)
+    else:
+        return jsonify(ds)
 
 
 
