@@ -52,3 +52,10 @@ class VisualOcean(object):
         sites = requests.get(url).json()
         sites_df = pd.DataFrame.from_records(sites)
         return list(np.sort(sites_df.apply(merge_site_name, axis=1).unique()))
+
+    def regions(self):
+        url = "{}/regions.json".format(self.base_url)
+        regions = requests.get(url).json()
+        regions_df = pd.DataFrame.from_records(regions['regions'])
+        return list(np.sort(regions_df.apply(merge_site_name, axis=1).unique()))
+
