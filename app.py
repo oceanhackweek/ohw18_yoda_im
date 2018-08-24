@@ -26,7 +26,7 @@ def filtered(m: str, values: List[str]) -> List[str]:
 
 @app.route("/")
 def hello():
-    app.send_static_file("index.html")
+    return app.send_static_file("index.html")
 
 
 @app.route("/products")
