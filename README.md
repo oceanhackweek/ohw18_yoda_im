@@ -38,7 +38,7 @@ docker-compose -f docker_dev/docker-compose.yml down
 ```
 
 ## Example URLS
-<http://localhost:4567/products>. 
-<http://localhost:4567/products?filter=sal>. 
-<http://localhost:4567/deployments/find/upward_earth_seawater_velocity>. 
+- <http://localhost:4567/products>
+- <http://localhost:4567/products?filter=sal>
+- <http://localhost:4567/deployments/find/upward_earth_seawater_velocity>
 
