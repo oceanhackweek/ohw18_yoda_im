@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Yoda IM - OOI Search Engine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="default.css" />
+  <!-- <script src="main.js"></script> -->
+</head>
+<body>
+  <section>
+    <img src="logo.png" alt="MBARI" />
+    <header>
+      <h1>Welcome to the Yoda IM</h1>
+      This server provides API endpoints for searching for and accessing data from OOI CI
+    </header>
+  </section>
+
+  <section>
+    <h2>API Endpoints Examples</h2>
+    <div>
+      <h3>What kind of data is available from OOI?</h3>
+      <pre>./products</pre><br>
+      <pre>./products?filter=`some_word`</pre><br>
+      <ul>
+        <li>All products: <a href="products">/products</a></li>
+        <li>Filtered example: <a href="products?filter=sal">/products?filter=sal</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>What deployments produced the data that I want?</h3>
+      <pre>./deployments/find/`parameter name`</pre><br>
+      <ul>
+        <li>Deployments with Salinity: <a href="deployments/find/salinity">/deployments/find/salinity</a></li>
+        <li>Deployments with Wave Direction: <a href="deployments/find/Wave%20Direction">/deployments/find/Wave Direction</a></li>
+      </ul>
+    </div>
+  </section>
+
+</body>
+</html>
