@@ -1,3 +1,4 @@
+from gevent import monkey; monkey.patch_all()
 import sys
 import json
 import requests
@@ -112,12 +113,14 @@ def list_regions():
     return jsonify(unique_values)
 
 
-@app.route("/data")
-def get_inst_data():
-    username = 'OOIAPI-D8S960UXPK4K03'
-    token = 'IXL48EQ2XY'
-    refID = 'CE04OSBP-LJ01C-06-CTDBPO108'
-    data = get_data(username, token, refID, '2017-08-22T00:00:00.000Z', '2017-08-23T04:00:00.000Z')
+@app.route("/data/<instrument_rd>")
+def get_inst_data(instrument_rd):
+    username = request.args.get('username')
+    token = request.args.get('token')
+    begin_date = request.args.get('begin_date')
+    end_date = request.args.get('end_date')
+    refID = instrument_rd
+    data = get_data(username, token, refID, begin_date, end_date)
     return jsonify(data)
 
 if __name__ == "__main__":
