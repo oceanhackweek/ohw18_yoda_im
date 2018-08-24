@@ -27,8 +27,8 @@ def get_data(username, token, ref_id, t_start, t_end):
     my_data.request_data(begin_date=t_start,
                             end_date=t_end,
                             data_type=data_type,
-                            limit=max_samps)
-
+                            limit=max_samps, 
+                            provenance=False)
     return my_data.raw()
 
 
