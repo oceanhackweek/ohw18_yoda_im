@@ -7,6 +7,8 @@ import numpy as np
 from flask import Flask, request, abort, jsonify, send_file, Response
 from visualocean import VisualOcean, merge_name_rd
 from typing import List
+#from inst_data import instData
+from inst_data import get_data
 
 base_url = "http://ooi.visualocean.net"
 
@@ -75,7 +77,6 @@ def find_deployments_by_param(param_name):
         return jsonify(ds)
 
 
-
 @app.route("/instruments")
 def list_instruments():
     unique_values = visualocean.instruments()
@@ -109,6 +110,15 @@ def list_regions():
     if f:
         unique_values = filtered(f, unique_values)
     return jsonify(unique_values)
+
+
+@app.route("/data")
+def get_inst_data():
+    username = 'OOIAPI-D8S960UXPK4K03'
+    token = 'IXL48EQ2XY'
+    refID = 'CE04OSBP-LJ01C-06-CTDBPO108'
+    data = get_data(username, token, refID, '2017-08-22T00:00:00.000Z', '2017-08-23T04:00:00.000Z')
+    return jsonify(data)
 
 if __name__ == "__main__":
     port = int(sys.argv[1])
