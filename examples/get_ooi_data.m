@@ -38,7 +38,7 @@ function [data] = get_ooi_data(username,token,instrument,t_start,t_end)
     % Ask for confirmation and go
     if isempty(input('Read to get data? Press ENTER to confirm, other to quit: ','s'))
         fprintf('\n\n... and awaaaaaayyy we go!\n\n');
-        data = webread(url,'username',username,'token',token,'start_date',t_start,'end_date',t_end,options);
+        data = webread(url,'username',username,'token',token,'begin_date',t_start,'end_date',t_end,options);
         if ~isempty(data)
             fprintf('\n\n NAILED IT! \n\n');
         else
