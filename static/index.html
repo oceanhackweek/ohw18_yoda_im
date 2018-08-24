@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,41 +11,50 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
   <style>
-body {
-  color: #80DEEA;
-  background-color: #263238;
-  font-family: 'Source Sans Pro';
-}
+    body {
+      color: #80DEEA;
+      background-color: #263238;
+      font-family: 'Source Sans Pro';
+    }
 
-header {
-  color: #FFC107;
-  padding-left: 40px;
-}
+    header {
+      color: #FFC107;
+      padding-left: 40px;
+    }
 
-pre {
-  font-family: 'Source Code Pro', monospace;
-  color: lightsalmon;
-}
+    pre {
+      font-family: 'Source Code Pro', monospace;
+      color: lightsalmon;
+    }
 
-section {
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
-    border: 0px solid;
-    border-color: #ECEFF1;
-    background-color: #334340;
-    color: #E0F7FA;
-    margin: 20px;
-    padding: 10px;
-}
+    section {
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      border-radius: 10px;
+      border: 0px solid;
+      border-color: #ECEFF1;
+      background-color: #334340;
+      color: #E0F7FA;
+      margin: 20px;
+      padding: 10px;
+    }
 
-a {
-  color: #00BCD4;
-}
+    a {
+      color: #00BCD4;
+    }
+
+    .api {
+      background-color: #5e7773;
+    }
+
+    h3 {
+      color: #FFC107;
+    }
   </style>
 </head>
+
 <body>
-  <section>
+  <section class="api">
     <img src="logo.png" alt="Yoda IM" />
     <header>
       <h1>Welcome to the Yoda IM</h1>
@@ -52,26 +62,64 @@ a {
     </header>
   </section>
 
-  <section>
-    <h2>API Endpoints Examples</h2>
-    <div>
-      <h3>What kind of data is available from OOI?</h3>
-      <pre>./products</pre><br>
-      <pre>./products?filter=`some_word`</pre><br>
-      <ul>
-        <li>All products: <a href="products">/products</a></li>
-        <li>Filtered example: <a href="products?filter=sal">/products?filter=sal</a></li>
-      </ul>
-    </div>
-    <div>
-      <h3>What deployments produced the data that I want?</h3>
-      <pre>./deployments/find/`parameter name`</pre><br>
-      <ul>
-        <li>Deployments with Salinity: <a href="deployments/find/salinity">/deployments/find/salinity</a></li>
-        <li>Deployments with Wave Direction: <a href="deployments/find/Wave%20Direction">/deployments/find/Wave Direction</a></li>
-      </ul>
-    </div>
+  <section class="api">
+      <h2>API Endpoints Examples</h2>
+    <section>
+      
+      <div>
+        <h3>What kind of data is available from OOI?</h3>
+        <pre>/products</pre>
+        <br>
+        <pre>/products?filter=`some_word`</pre>
+        <br>
+        <ul>
+          <li>All products:
+            <a href="products">/products</a>
+          </li>
+          <li>Filtered example:
+            <a href="products?filter=sal">/products?filter=sal</a>
+          </li>
+        </ul>
+        <h4>Key Points</h4>
+        <ul>
+          <li>You can use these names to find deployments that generated a particular parameter</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div>
+        <h3>What deployments produced the data that I want?</h3>
+        <pre>/deployments/find/`parameter name`</pre>
+        <br>
+        <ul>
+          <li>Deployments with Salinity:
+            <a href="deployments/find/salinity">/deployments/find/salinity</a>
+          </li>
+          <li>Deployments with Wave Direction:
+            <a href="deployments/find/Wave%20Direction">/deployments/find/Wave Direction</a>
+          </li>
+        </ul>
+        <h4>Key Points</h4>
+        <ul>
+          <li>This is a list of deployments that contain the parameter you want.</li>
+          <li>Each record will have a
+            <i>reference designator</i>. You need that to get the data.</li>
+          <li>There's also lat, lon, start datetime, and end datetime. You can filter by position and dates for the sites that
+            you are interested in.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div>
+        <h3>How do I get the data for a deployment?</h3>
+        <pre>/data/`reference designator`?username=`ooi username`&token=`ooi user token`&start_date=`yyyy-MM-ddTHH:mm:ssZ`&end_date=`yyyy-MM-ddTHH:mm:ssZ`</pre>
+        <pre>/data/CE04OSBP-LJ01C-06-CTDBPO108?username=OOIAPI-AB06CTD1GFAGGC&token=ABCDEFGHIJKL&start_date=2017-08-23T00:00:00.000Z&end_date=2017-08-23T00:00:00.000Z</pre>
+      </div>
+    </section>
   </section>
 
 </body>
+
 </html>
