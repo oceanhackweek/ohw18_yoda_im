@@ -13,7 +13,7 @@ from inst_data import get_data
 
 base_url = "http://ooi.visualocean.net"
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 # CORS(app)
 visualocean = VisualOcean(base_url)
 
@@ -27,6 +27,11 @@ def filtered(m: str, values: List[str]) -> List[str]:
 @app.route("/")
 def hello():
     return app.send_static_file("index.html")
+
+@app.route('/<path:path>')
+def static_proxy(path):
+  # send_static_file will guess the correct MIME type
+  return app.send_static_file(path)
 
 
 @app.route("/products")
