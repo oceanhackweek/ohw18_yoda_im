@@ -7,10 +7,22 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../:/opt/yoda_im:consistent
-    ports:
-      - 4567:4567
     expose:
       - 4567
+    networks:
+      - yodan  
+  lb:
+    build:
+      context: .
+      dockerfile: lb/Dockerfile
+    ports:
+      - 80:80
+    links:
+      - yoda_im_server
+    networks:
+      - yodan
+networks: 
+  yodan:
   # yoda_im_frontend:
   #   build:
   #     context: ../
