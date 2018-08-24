@@ -3,7 +3,7 @@ import json
 import requests
 import pandas as pd
 import numpy as np
-from flask_cors import CORS
+# from flask_cors import CORS
 from flask import Flask, request, abort, jsonify, send_file, Response
 from visualocean import VisualOcean, merge_name_rd
 from typing import List
@@ -11,7 +11,7 @@ from typing import List
 base_url = "http://ooi.visualocean.net"
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 visualocean = VisualOcean(base_url)
 
 
@@ -61,6 +61,14 @@ def find_reference_designator(stream_name: str):
 @app.route("/deployments/<reference_designator>")
 def find_deployments(reference_designator):
     ds = visualocean.deployments(reference_designator)
+    if len(ds) == 0:
+        abort(404)
+    else:
+        return jsonify(ds)
+
+@app.route("/deployments/find/<param_name>")
+def find_deployments_by_param(param_name):
+    ds = visualocean.deployments_by_param_name(param_name)
     if len(ds) == 0:
         abort(404)
     else:

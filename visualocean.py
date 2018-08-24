@@ -108,25 +108,36 @@ class VisualOcean(object):
             return []
 
     def deployments_by_param_name(self, param_name: str):
+
         # get parameter_id
         pid = self.parameter_id(param_name)
 
+        # print("parameter id = {}".format(pid))
 
-        #get stream names by param id
-        sns = self.stream_names(pid)
+        matching_deployments = []
+        if pid != -1:
 
-        # get reference_designators by stream_name
-        rds = []
-        for stream_name in sns:
-            rs = self.reference_designator(stream_name)
-            for r in rs:
-                rds.append(r)
+            #get stream names by param id
+            sns = self.stream_names(pid)
 
-        # get deployments by referenc designator
-        ds = []
-        for rd in rds:
-            ds = self.deployments(rd)
-            for d in ds:
-                ds.append(d)
+            # print("Streams = " + str(sns))
+
+            # get reference_designators by stream_name
+            rds = []
+            for stream_name in sns:
+                rs = self.reference_designator(stream_name)
+                for r in rs:
+                    rds.append(r)
+
+            # print("reference designators = " + str(rds))
+
+            # get deployments by referenc designator
+            
+            for rd in rds:
+                ds = self.deployments(rd)
+                for d in ds:
+                    matching_deployments.append(d)
+
+        # print("Deployments = " + str(matching_deployments))
         
-        return ds
+        return matching_deployments
