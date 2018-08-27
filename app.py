@@ -41,6 +41,15 @@ def list_data_products():
     if f:
         unique_values = filtered(f, unique_values)
     return jsonify(unique_values)
+
+@app.route("/ids_array")
+def search_on_array():
+    unique_IDs = visualocean.ids_at_array()
+    f = request.args.get('filter')
+    if f:
+        unique_IDs = filtered(f, unique_IDs)
+    return jsonify(unique_IDs)
+
     
 @app.route("/products/id/<name>")
 def find_product_id(name):
