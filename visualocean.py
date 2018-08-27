@@ -34,6 +34,14 @@ class VisualOcean(object):
             science_df['name'].dropna().values) + list(science_df['standard_name'].dropna().values)
         return sorted(list(set(all_params)))
 
+    def ids_at_array(self) -> List[str]:
+        url = "{}/parameters.json".format(self.base_url)
+        json = requests.get(url).json()
+        df = pd.DataFrame.from_records(json['data'])
+        science_df = df[df.data_product_type == 'Science Data']
+        all_IDs = list(science_df['reference_designator'].dropna().values)
+        return sorted(list(set(all_IDs)))
+
     def instruments(self) -> List[str]:
         url = "{}/instruments.json".format(self.base_url)
         params = requests.get(url).json()

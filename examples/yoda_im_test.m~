@@ -2,8 +2,8 @@
 % Setup the varibles you need
 instrument = 'CE04OSBP-LJ01C-06-CTDBPO108';
 %instrument = 'RS01SBPS-SF01A-2A-CTDPFA102';
-token      = ''
-username   = ''
+token      = 'V75GXAXOL3M2QD';
+username   = 'OOIAPI-JB05CTD1GFAGGC';
 t_start    = '2017-08-1T00:00:00.000Z';
 t_end      = '2017-08-30T00:00:00.000Z';
 
